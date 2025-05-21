@@ -1,0 +1,12 @@
+@import './constants.css';
+html,body{
+    margin: 0;
+    padding: 0 ; 
+    background: rgb(41, 37, 37);
+}
+.App{
+    display: grid;
+    place-content: center;
+    height: 100vh ; 
+    background: grey;
+}
