@@ -1,36 +1,41 @@
-import { getCharacter } from "../../helper";
 import "./Board.css";
-import Files from "./bits/Files";
-import Ranks from "./bits/Ranks";
-const Board = () => {
-  const getClassName = (i, j) => {
-    let c = "tile";
-    c += (i + j) % 2 === 0 ? " tile--light" : " tile--dark";
-    return c;
-  };
 
+import Ranks from "./bits/Ranks";
+import Files from "./bits/Files";
+import Pieces from "./Pieces/Pieces.jsx";
+
+const Board = () => {
   const ranks = Array(8)
     .fill()
     .map((x, i) => 8 - i);
   const files = Array(8)
     .fill()
-    .map((x, i) => getCharacter(i));
+    .map((x, i) => i + 1);
+
+  const getClassName = (i, j) => {
+    let c = "tile";
+    c += (i + j) % 2 === 0 ? " tile--dark " : " tile--light ";
+
+    return c;
+  };
 
   return (
     <div className="board">
-      <div style={{ gridArea: "ranks" }}>
-        <Ranks ranks={ranks} />
-      </div>
-      <div className="tiles" style={{ gridArea: "tiles" }}>
+      <Ranks ranks={ranks} />
+
+      <div className="tiles">
         {ranks.map((rank, i) =>
           files.map((file, j) => (
-            <div key={file + "-" + rank} className={getClassName(i, j)}></div>
+            <div
+              key={file + "" + rank}
+              className={getClassName(9 - i, j)}
+            ></div>
           ))
         )}
+        <Pieces />
       </div>
-      <div style={{ gridArea: "files" }}>
-        <Files files={files} />
-      </div>
+
+      <Files files={files} />
     </div>
   );
 };

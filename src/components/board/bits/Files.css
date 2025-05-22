@@ -1,9 +1,9 @@
- .files{
+.files {
+    color : var(--dark-tile);
+    height: calc(.25*var(--tile-size));
     grid-column: 2;
     display: flex;
-    align-items: center;
     justify-content: space-around;
-    color: var(--dark-tile);
-    height: calc(0.25*var(--tile-size));
-    padding-top: 20px;
- }
+    align-items: center;
+    margin-top: 5px;
+}
