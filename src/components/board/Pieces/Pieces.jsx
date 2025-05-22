@@ -2,9 +2,14 @@ import "./Pieces.css";
 import Piece from "./Piece";
 import { createPosition, copyPosition } from "../../../helper.js";
 import { useState, useRef } from "react";
-
+import { useAppContext } from "../../../contexts/Context.js";
+import { makeNewMove } from "../../../reducer/actions/move.js";
 const Pieces = () => {
   const ref = useRef();
+
+  const { appState, dispatch } = useAppContext();
+
+  const currentPosition = appState.position[appState.position.length - 1];
 
   const [state, setState] = useState(createPosition());
 
@@ -19,24 +24,24 @@ const Pieces = () => {
   const onDragOver = (e) => e.preventDefault();
 
   const onDrop = (e) => {
-    const newPosition = copyPosition(state);
+    const newPosition = copyPosition(currentPosition);
     const { x, y } = calculateCoords(e);
     const [p, rank, file] = e.dataTransfer.getData("text").split(",");
     newPosition[rank][file] = "";
     newPosition[x][y] = p;
-    setState(newPosition);
+    dispatch(makeNewMove({ newPosition }));
   };
 
   return (
     <div onDrop={onDrop} onDragOver={onDragOver} ref={ref} className="pieces">
-      {state.map((r, rank) =>
+      {currentPosition.map((r, rank) =>
         r.map((f, file) =>
-          state[rank][file] ? (
+          currentPosition[rank][file] ? (
             <Piece
               key={rank + "-" + file}
               rank={rank}
               file={file}
-              piece={state[rank][file]}
+              piece={currentPosition[rank][file]}
             />
           ) : null
         )
