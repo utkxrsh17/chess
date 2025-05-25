@@ -3,7 +3,7 @@ import Piece from "./Piece";
 import { createPosition, copyPosition } from "../../../helper.js";
 import { useState, useRef } from "react";
 import { useAppContext } from "../../../contexts/Context.js";
-import { makeNewMove } from "../../../reducer/actions/move.js";
+import { makeNewMove, clearCandidates } from "../../../reducer/actions/move.js";
 const Pieces = () => {
   const ref = useRef();
 
@@ -27,9 +27,14 @@ const Pieces = () => {
     const newPosition = copyPosition(currentPosition);
     const { x, y } = calculateCoords(e);
     const [p, rank, file] = e.dataTransfer.getData("text").split(",");
-    newPosition[rank][file] = "";
-    newPosition[x][y] = p;
-    dispatch(makeNewMove({ newPosition }));
+
+    if (appState.candidateMoves?.find((m) => m[0] === x && m[1] === y)) {
+      newPosition[Number(rank)][Number(file)] = "";
+      newPosition[x][y] = p;
+      dispatch(makeNewMove({ newPosition }));
+    }
+
+    dispatch(clearCandidates());
   };
 
   return (
