@@ -29,6 +29,11 @@ const Pieces = () => {
     const [p, rank, file] = e.dataTransfer.getData("text").split(",");
 
     if (appState.candidateMoves?.find((m) => m[0] === x && m[1] === y)) {
+      //en - passant
+      if (p.endsWith("p") && !newPosition[x][y] && x !== rank && y !== file) {
+        newPosition[rank][y] = "";
+      }
+
       newPosition[Number(rank)][Number(file)] = "";
       newPosition[x][y] = p;
       dispatch(makeNewMove({ newPosition }));
