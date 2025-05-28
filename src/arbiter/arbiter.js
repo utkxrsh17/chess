@@ -7,8 +7,9 @@ import {
   getPawnCaptures,
   getPawnMoves,
 } from "./getMoves";
+import { movePawn, movePiece } from "./move.js";
 const arbiter = {
-  getRegularMoves: function ({ position, prevPosition, piece, rank, file }) {
+  getRegularMoves: function ({ position, piece, rank, file }) {
     if (piece.endsWith("n")) {
       return getKnightMoves({ position, piece, rank, file });
     }
@@ -40,6 +41,14 @@ const arbiter = {
     }
 
     return moves;
+  },
+
+  performMove: function ({ position, piece, rank, file, x, y }) {
+    if (piece.endsWith("p")) {
+      return movePawn({ position, piece, rank, file, x, y });
+    } else {
+      return movePiece({ position, piece, rank, file, x, y });
+    }
   },
 };
 
