@@ -2,9 +2,10 @@ import "./Board.css";
 
 import Ranks from "./bits/Ranks";
 import Files from "./bits/Files";
-import Pieces from "./Pieces/Pieces.jsx";
+import Pieces from "./Pieces/Pieces";
 import { useAppContext } from "./../../contexts/Context";
-
+import PromotionBox from "./Popup/PromotionBox/PromotionBox";
+import Popup from "./Popup/Popup";
 const Board = () => {
   const ranks = Array(8)
     .fill()
@@ -44,6 +45,10 @@ const Board = () => {
           ))
         )}
         <Pieces />
+
+        <Popup>
+          <PromotionBox />
+        </Popup>
       </div>
 
       <Files files={files} />

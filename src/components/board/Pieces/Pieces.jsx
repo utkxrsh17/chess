@@ -1,12 +1,24 @@
 import "./Pieces.css";
 import Piece from "./Piece";
+import { openPromotion } from "../../../reducer/actions/popup";
 import { useRef } from "react";
-import { useAppContext } from "../../../contexts/Context.js";
-import { makeNewMove, clearCandidates } from "../../../reducer/actions/move.js";
-import arbiter from "../../../arbiter/arbiter.js";
+import { useAppContext } from "../../../contexts/Context";
+import { makeNewMove, clearCandidates } from "../../../reducer/actions/move";
+import arbiter from "../../../arbiter/arbiter";
 
 const Pieces = () => {
   const ref = useRef();
+
+  const openPromotionBox = ({ rank, file, x, y }) => {
+    dispatch(
+      openPromotion({
+        rank: Number(rank),
+        file: Number(file),
+        x,
+        y,
+      })
+    );
+  };
 
   const { appState, dispatch } = useAppContext();
 
@@ -28,6 +40,11 @@ const Pieces = () => {
     const [piece, rank, file] = e.dataTransfer.getData("text").split(",");
 
     if (appState.candidateMoves?.find((m) => m[0] === x && m[1] === y)) {
+      if ((piece === "wp" && x === 7) || (piece === "bp" && x === 0)) {
+        openPromotionBox({ rank, file, x, y });
+        return;
+      }
+
       const newPosition = arbiter.performMove({
         position: currentPosition,
         piece,

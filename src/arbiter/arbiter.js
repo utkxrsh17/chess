@@ -7,7 +7,7 @@ import {
   getPawnCaptures,
   getPawnMoves,
 } from "./getMoves";
-import { movePawn, movePiece } from "./move.js";
+import { movePawn, movePiece } from "./move";
 const arbiter = {
   getRegularMoves: function ({ position, piece, rank, file }) {
     if (piece.endsWith("n")) {

@@ -1,4 +1,4 @@
-import actionTypes from "../actionTypes.js";
+import actionTypes from "../actionTypes";
 
 export const makeNewMove = ({ newPosition }) => {
   return {
