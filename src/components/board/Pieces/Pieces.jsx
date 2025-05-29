@@ -5,9 +5,22 @@ import { useRef } from "react";
 import { useAppContext } from "../../../contexts/Context";
 import { makeNewMove, clearCandidates } from "../../../reducer/actions/move";
 import arbiter from "../../../arbiter/arbiter";
+import { getCastlingDirections } from "../../../arbiter/getMoves";
+import { updateCastling } from "./../../../reducer/actions/game";
 
 const Pieces = () => {
   const ref = useRef();
+  const updateCastlingState = ({ piece, file, rank }) => {
+    const direction = getCastlingDirections({
+      castleDirection: appState.castleDirection,
+      piece,
+      file,
+      rank,
+    });
+    if (direction) {
+      dispatch(updateCastling(direction));
+    }
+  };
 
   const openPromotionBox = ({ rank, file, x, y }) => {
     dispatch(
@@ -43,6 +56,9 @@ const Pieces = () => {
       if ((piece === "wp" && x === 7) || (piece === "bp" && x === 0)) {
         openPromotionBox({ rank, file, x, y });
         return;
+      }
+      if (piece.endsWith("r") || piece.endsWith("k")) {
+        updateCastlingState({ piece, file, rank });
       }
 
       const newPosition = arbiter.performMove({
