@@ -10,6 +10,7 @@ import {
   updateCastling,
   detectStalemate,
   detectInsufficientMaterial,
+  detectCheckmate,
 } from "./../../reducer/actions/game";
 
 const Pieces = () => {
@@ -80,13 +81,15 @@ const Pieces = () => {
         y,
       });
 
+      dispatch(makeNewMove({ newPosition }));
+
       if (arbiter.insufficientMaterial(newPosition))
         dispatch(detectInsufficientMaterial());
       else if (arbiter.isStalemate(newPosition, opponent, castleDirection)) {
         dispatch(detectStalemate());
+      } else if (arbiter.isCheckMate(newPosition, opponent, castleDirection)) {
+        dispatch(detectCheckmate(piece[0]));
       }
-
-      dispatch(makeNewMove({ newPosition }));
     }
     dispatch(clearCandidates());
   };
