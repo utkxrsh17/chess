@@ -6,7 +6,11 @@ import { useAppContext } from "../../contexts/Context";
 import { makeNewMove, clearCandidates } from "../../reducer/actions/move";
 import arbiter from "../../arbiter/arbiter";
 import { getCastlingDirections } from "../../arbiter/getMoves";
-import { updateCastling, detectStalemate } from "./../../reducer/actions/game";
+import {
+  updateCastling,
+  detectStalemate,
+  detectInsufficientMaterial,
+} from "./../../reducer/actions/game";
 
 const Pieces = () => {
   const ref = useRef();
@@ -76,7 +80,9 @@ const Pieces = () => {
         y,
       });
 
-      if (arbiter.isStalemate(newPosition, opponent, castleDirection)) {
+      if (arbiter.insufficientMaterial(newPosition))
+        dispatch(detectInsufficientMaterial());
+      else if (arbiter.isStalemate(newPosition, opponent, castleDirection)) {
         dispatch(detectStalemate());
       }
 

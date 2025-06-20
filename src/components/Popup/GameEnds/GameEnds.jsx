@@ -12,7 +12,6 @@ const GameEnds = ({ onClosePopup }) => {
   if (status === Status.ongoing || status === Status.promoting) return null;
 
   const newGame = () => {
-    onClosePopup();
     dispatch(setupNewGame());
   };
 

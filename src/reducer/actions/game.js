@@ -7,11 +7,19 @@ export const updateCastling = (direction) => {
     payload: direction,
   };
 };
+
 export const detectStalemate = () => {
   return {
     type: actionTypes.STALEMATE,
   };
 };
+
+export const detectInsufficientMaterial = () => {
+  return {
+    type: actionTypes.INSUFFICIENT_MATERIAL,
+  };
+};
+
 export const setupNewGame = () => {
   return {
     type: actionTypes.NEW_GAME,
