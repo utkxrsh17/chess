@@ -2,8 +2,7 @@ import arbiter from "./arbiter";
 
 export const getRookMoves = ({ position, piece, rank, file }) => {
   const moves = [];
-  const us = piece[0];
-  const enemy = us === "w" ? "b" : "w";
+  const enemy = piece[0] === "w" ? "b" : "w";
 
   const direction = [
     [-1, 0],
@@ -22,7 +21,7 @@ export const getRookMoves = ({ position, piece, rank, file }) => {
         moves.push([x, y]);
         break;
       }
-      if (position[x][y].startsWith(us)) {
+      if (position[x][y].startsWith(piece[0])) {
         break;
       }
       moves.push([x, y]);
@@ -32,7 +31,6 @@ export const getRookMoves = ({ position, piece, rank, file }) => {
 };
 export const getKnightMoves = ({ position, piece, rank, file }) => {
   const moves = [];
-  const us = piece[0];
   const enemy = position[rank][file].startsWith("w") ? "b" : "w";
 
   const candidates = [
@@ -60,7 +58,6 @@ export const getKnightMoves = ({ position, piece, rank, file }) => {
 };
 export const getBishopMoves = ({ position, piece, rank, file }) => {
   const moves = [];
-  const us = piece[0];
   const enemy = position[rank][file].startsWith("w") ? "b" : "w";
 
   const direction = [
@@ -80,7 +77,7 @@ export const getBishopMoves = ({ position, piece, rank, file }) => {
         moves.push([x, y]);
         break;
       }
-      if (position[x][y].startsWith(us)) {
+      if (position[x][y].startsWith(piece[0])) {
         break;
       }
       moves.push([x, y]);
@@ -99,7 +96,6 @@ export const getQueenMoves = ({ position, piece, rank, file }) => {
 export const getKingMoves = ({ position, piece, rank, file }) => {
   const moves = [];
   const enemy = position[rank][file].startsWith("w") ? "b" : "w";
-  const us = piece[0];
 
   const candidates = [
     [0, 1],
