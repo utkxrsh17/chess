@@ -1,12 +1,12 @@
 import "./Pieces.css";
 import Piece from "./Piece";
-import { openPromotion } from "../../../reducer/actions/popup";
+import { openPromotion } from "../../reducer/actions/popup";
 import { useRef } from "react";
-import { useAppContext } from "../../../contexts/Context";
-import { makeNewMove, clearCandidates } from "../../../reducer/actions/move";
-import arbiter from "../../../arbiter/arbiter";
-import { getCastlingDirections } from "../../../arbiter/getMoves";
-import { updateCastling } from "./../../../reducer/actions/game";
+import { useAppContext } from "../../contexts/Context";
+import { makeNewMove, clearCandidates } from "../../reducer/actions/move";
+import arbiter from "../../arbiter/arbiter";
+import { getCastlingDirections } from "../../arbiter/getMoves";
+import { updateCastling } from "./../../reducer/actions/game";
 
 const Pieces = () => {
   const ref = useRef();

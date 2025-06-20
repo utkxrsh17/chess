@@ -1,6 +1,6 @@
-import { useAppContext } from "../../../../contexts/Context";
-import { copyPosition } from "../../../../helper";
-import { makeNewMove, clearCandidates } from "../../../../reducer/actions/move";
+import { useAppContext } from "../../../contexts/Context";
+import { copyPosition } from "../../../helper";
+import { makeNewMove, clearCandidates } from "../../../reducer/actions/move";
 import "./PromotionBox.css";
 
 const PromotionBox = ({ onClosePopup }) => {
