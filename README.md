@@ -14,7 +14,7 @@ A simple two-player chess game built with React, playable on a single device. Id
 
 - React
 - JavaScript (ES6+)
-- CSS (or Tailwind if applicable)
+- CSS 
 
 ## 📦 Getting Started
 
